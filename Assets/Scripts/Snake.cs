@@ -29,7 +29,7 @@ public class Snake : Singleton<Snake>
 
 	private readonly Color headColor = Color.yellow;
 	private readonly Color middleColor = Color.green;
-	private readonly Color tileColor = Color.green;
+	//private readonly Color tileColor = Color.green;
 
 
 	// ---------------------------------------------------------------------------------------------------
@@ -42,12 +42,12 @@ public class Snake : Singleton<Snake>
 		// add our AudioSource component
 		if (!gameObject.GetComponent<AudioSource>())
 		{
-			move1 = Resources.Load("Sounds/Move1Blip") as AudioClip;
-			move2 = Resources.Load("Sounds/Move2Blip") as AudioClip;
-			death = Resources.Load("Sounds/Death") as AudioClip;
+			move1 = Resources.Load<AudioClip>("Sfx/Move1Blip");
+			move2 = Resources.Load<AudioClip>("Sfx/Move2Blip");
+			death = Resources.Load<AudioClip>("Sfx/Death");
 
 			if(!move1 || !move2 || !death) {
-				//Debug.Log("Failed to load audio resources!");
+				Debug.Log("Failed to load audio resources!");
 			}
 			else {
 				gameObject.AddComponent<AudioSource>();
@@ -67,7 +67,7 @@ public class Snake : Singleton<Snake>
 
 		// define our snake head and tail GUI Rect
 		float ch = (Globals.GameFieldWidth / Globals.TileSize) / 2f * Globals.TileSize + (Globals.TileSize/2f); // 20
-		float cv = (Globals.GameFieldHeight / Globals.TileSize) / 2f * Globals.TileSize + (Globals.TileSize/2f); // 20
+		float cv = (Globals.GameFieldHeight / Globals.TileSize) / 2f * Globals.TileSize + (Globals.TileSize/2f); // 15
 
 		snakePos.Add(new Rect(ch, cv , Globals.TileSize, Globals.TileSize));
 		snakePos.Add(new Rect(ch, cv + Globals.TileSize, Globals.TileSize, Globals.TileSize));
@@ -82,19 +82,23 @@ public class Snake : Singleton<Snake>
 
 	void HandleInput()
 	{
-		if (InputHelper.GetStandardMoveUpDirection())
+		if (InputHelper.GetStandardMoveUpDirection() &&
+		    currentDirection != Direction.DOWN)
 		{
 			currentDirection = Direction.UP;
 		}
-		else if (InputHelper.GetStandardMoveLeftDirection())
+		else if (InputHelper.GetStandardMoveLeftDirection() &&
+		         currentDirection != Direction.RIGHT)
 		{
 			currentDirection = Direction.LEFT;
 		}
-		else if (InputHelper.GetStandardMoveDownDirection())
+		else if (InputHelper.GetStandardMoveDownDirection() &&
+		         currentDirection != Direction.UP)
 		{
 			currentDirection = Direction.DOWN;
 		}
-		else if (InputHelper.GetStandardMoveRightDirection())
+		else if (InputHelper.GetStandardMoveRightDirection() &&
+		         currentDirection != Direction.LEFT)
 		{
 			currentDirection = Direction.RIGHT;
 		}
@@ -124,7 +128,11 @@ public class Snake : Singleton<Snake>
 			audio.Play();
 		}
 		yield return StartCoroutine(ScreenHelper.FlashScreen(6, 0.1f, new Color(1f,0,0,0.5f)));
+	}
 
+	void GameLogic()
+	{
+		// Game logic TODO move to game manager
 		SnakeGame.Instance.UpdateLives(-1);
 		if(SnakeGame.Instance.gameLives == 0) {
 			GameOver();
@@ -137,7 +145,7 @@ public class Snake : Singleton<Snake>
 
 	IEnumerator GameOver()
 	{
-		Debug.Log("GameOver, reload level...");
+		Debug.Log("GameOver, restart level...");
 		yield return new WaitForSeconds(1f);
 		Application.LoadLevel(Application.loadedLevelName);
 	}
@@ -459,7 +467,7 @@ public class Snake : Singleton<Snake>
 		}
 		return new Rect(0, 0, 0, 0);
 	}
-	// lewo, gora
+
 	Rect CheckForValidLeftPosition()
 	{
 		if(snakePos[snakePos.Count-1].x != 0)

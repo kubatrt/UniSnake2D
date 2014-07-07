@@ -3,6 +3,12 @@ using System.Collections;
 
 public class TextureHelper : MonoBehaviour
 {
+
+	public static Texture2D CreateTexture(string assetName)
+	{
+		return Resources.Load<Texture2D>(assetName); 
+	}
+
 	// overloaded method to create a texture with color
 	public static Texture2D CreateTexture(int width, int height)
 	{

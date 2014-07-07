@@ -46,6 +46,39 @@ public class SnakeGame : MonoBehaviour {
 		displayLives.text = "Lives: " + gameLives;
 	}
 
+	
+	// load new resources
+	void LoadResources()
+	{
+		GUIHelper.CreateGUITexture(new Rect(0,0, Globals.ScreenWidth, Globals.GameFieldY), Color.gray, "ScreenBorder", 0);
+		GUIHelper.CreateGUITexture(new Rect(0,0, 96, 96), "snake", 1);
+
+		//GUIHelper.CreateGUITexture(new Rect(Globals.GameFieldX, Globals.GameFieldY, 
+		//                                    Globals.GameFieldWidth, Globals.GameFieldHeight), Color.black, "ScreenGameField", 1);
+
+		GreenBoard();
+		//GUIHelper.CreateGUITexture("Gfx/grass_01");
+	}
+
+	void GreenBoard() 
+	{
+		// 20x15 tiles
+		int htiles = Globals.ScreenWidth / Globals.TileSize;
+		int vtiles = Globals.ScreenHeight / Globals.TileSize;
+		for(int i=0; i < htiles*(vtiles+1); ++i)
+		{ 
+			int posY = i / htiles;
+			int posX = i % htiles;
+			int piX = posX * Globals.TileSize;
+			int piY = posY * Globals.TileSize;
+
+			GUIHelper.CreateGUITexture(new Rect( piX, piY, Globals.TileSize, Globals.TileSize), 
+			                           "grass_04d", Globals.LayerBackround);
+			Debug.Log (string.Format( "grass[{0}][{1},{2}] = {3} x {4}", i, posX, posY, piX, piY));
+		}
+		//GUIHelper.CreateGUITexture(new Rect(0,0, 32, 32), "grass_04", -99);
+	}
+
 	public void Initialize()
 	{
 		transform.position = Vector3.zero;
@@ -56,12 +89,11 @@ public class SnakeGame : MonoBehaviour {
 		gameLives = maxLives;
 		scoreMultiplier = 100;
 
-		GUIHelper.CreateGUITexture(new Rect(0,0, Globals.ScreenWidth, Globals.ScreenHeight), Color.gray, "ScreenBorder", 0);
-		GUIHelper.CreateGUITexture(new Rect(Globals.GameFieldX, Globals.GameFieldY, Globals.GameFieldWidth, Globals.GameFieldHeight), Color.black, "ScreenGameField", 1);
+		LoadResources();
 
-		displayScore = GUIHelper.CreateGetGUIText(new Vector2(16, 32), "Game Score", "Score", 1);   
+		displayScore = GUIHelper.CreateGetGUIText(new Vector2(96, 64), "Game Score", "Score", 1);   
 		UpdateScore(0);
-		displayLives = GUIHelper.CreateGetGUIText(new Vector2(16, 64), "Game Lives", "Lives", 1);
+		displayLives = GUIHelper.CreateGetGUIText(new Vector2(96, 96), "Game Lives", "Lives", 1);
 		UpdateLives(0);
 	}
 

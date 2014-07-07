@@ -13,8 +13,9 @@ public class GameManager : MonoBehaviour {
 	}
 
 
-	void OnDrawGizmos()
+	void Update()
 	{
+		// SnakeGame.Instance.Update();
 	}
 	
 }

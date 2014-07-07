@@ -11,9 +11,13 @@ public class Globals
 	public static readonly int	GameFieldY = 96;
 	public static readonly int 	GameFieldWidth = ScreenWidth - GameFieldX;
 	public static readonly int 	GameFieldHeight = ScreenHeight - GameFieldY;
+
+	public static readonly int 	LayerBackround = -100;
+	public static readonly int 	LayerForeground = 0;
+	public static readonly int 	LayerHUD = 100;
 }
 
-// (0,0)
+//  GUI COORDS (0,0)
 //  +---------
 //  |
 //  |

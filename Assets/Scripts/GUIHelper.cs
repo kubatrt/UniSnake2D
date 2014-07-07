@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class GUIHelper : MonoBehaviour {
-
+public class GUIHelper : MonoBehaviour 
+{
 	public static GUIText CreateGetGUIText(Vector2 offset, string text, float layer)
 	{
 		return CreateGetGUIText(offset, "GUITextObject", text, layer);
@@ -23,6 +23,20 @@ public class GUIHelper : MonoBehaviour {
 		return guiDisplayText;
 	}
 
+	public static GUITexture CreateGUITexture(Rect coordinates, string name, float layer)
+	{
+		GameObject guiObject = new GameObject(name);
+		guiObject.transform.position = new Vector3(0, 0, layer);
+		guiObject.transform.rotation = Quaternion.identity;
+		guiObject.transform.localScale = new Vector3(0.01f, 0.01f, 1.0f);
+
+		GUITexture dispTexture = guiObject.AddComponent<GUITexture>();
+		Texture2D guiTexture = TextureHelper.CreateTexture("Gfx/" + name);
+		dispTexture.texture = guiTexture;
+		dispTexture.pixelInset = coordinates;
+		return dispTexture;
+	}
+
 
 	public static void CreateGUITexture(Rect coordinates, Color colTexture, float layer)
 	{
@@ -32,12 +46,12 @@ public class GUIHelper : MonoBehaviour {
 	public static void CreateGUITexture(Rect coordinates, Color colTexture, string name, float layer)
 	{
 		// we need a new game object to hold the component
-		GameObject guiTextureObject = new GameObject(name);
-		guiTextureObject.transform.position = new Vector3(0, 0, layer);
-		guiTextureObject.transform.rotation = Quaternion.identity;
-		guiTextureObject.transform.localScale = new Vector3(0.01f, 0.01f, 1.0f);
+		GameObject guiObject = new GameObject(name);
+		guiObject.transform.position = new Vector3(0, 0, layer);
+		guiObject.transform.rotation = Quaternion.identity;
+		guiObject.transform.localScale = new Vector3(0.01f, 0.01f, 1.0f);
 
-		GUITexture guiDisplayTexture = guiTextureObject.AddComponent<GUITexture>();
+		GUITexture guiDisplayTexture = guiObject.AddComponent<GUITexture>();
 		Texture2D guiTexture = TextureHelper.Create1x1Texture(colTexture);
 		guiDisplayTexture.texture = guiTexture;
 		guiDisplayTexture.pixelInset = coordinates;

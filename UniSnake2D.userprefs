@@ -1,13 +1,11 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\GameManager.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\SnakeGame.cs">
     <Files>
-      <File FileName="Assets\Scripts\Snake.cs" Line="483" Column="1" />
-      <File FileName="Assets\Scripts\Globals.cs" Line="11" Column="44" />
-      <File FileName="Assets\Scripts\Food.cs" Line="23" Column="23" />
-      <File FileName="Assets\Scripts\GameManager.cs" Line="10" Column="24" />
-      <File FileName="Assets\Scripts\GUIHelper.cs" Line="40" Column="15" />
-      <File FileName="Assets\Scripts\SnakeGame.cs" Line="60" Column="101" />
+      <File FileName="Assets\Scripts\SnakeGame.cs" Line="52" Column="3" />
+      <File FileName="Assets\Scripts\Globals.cs" Line="8" Column="48" />
+      <File FileName="Assets\Scripts\Snake.cs" Line="68" Column="42" />
+      <File FileName="Assets\Scripts\Food.cs" Line="51" Column="22" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

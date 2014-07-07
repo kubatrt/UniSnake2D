@@ -62,7 +62,7 @@ public class Food : Singleton<Food>
 		transform.rotation = Quaternion.identity;
 		transform.localScale = Vector3.one;
 
-		foodTexture = TextureHelper.CreateTexture(Globals.TileSize, Globals.TileSize, Color.red);
+		foodTexture = TextureHelper.CreateTexture("Gfx/apple_01");
 
 		GenerateInitPositions();
 
